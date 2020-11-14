@@ -119,7 +119,11 @@ async function notifyFinished(token: string, webhookUri: string, context: Contex
 
     const jobs = jobList.data.jobs
 
+    console.log(JSON.stringify(jobs))
+
     const job = jobs.find(j => j.name === context.job)
+
+    console.log(JSON.stringify(job))
 
     const stoppedStep = job?.steps.find(
       s =>
@@ -139,7 +143,7 @@ async function notifyFinished(token: string, webhookUri: string, context: Contex
       run_id: context.runId
     })
 
-    core.debug(JSON.stringify(wr.data))
+   console.log(JSON.stringify(wr.data))
 
     const repository_url = context.payload.repository?.html_url
     const commit_author = context.actor
