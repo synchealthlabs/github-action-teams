@@ -27,16 +27,16 @@ async function notifyStarted({
       run_id: context.runId
     })
 
-    const themeColor = '90C978'
+    const themeColor = '888ABD'
 
     const webhookBody = {
       '@type': 'MessageCard',
       '@context': 'http://schema.org/extensions',
       themeColor: `${themeColor}`,
-      summary: `${context.payload.repository?.full_name} workflow started`,
+      summary: `${context.payload.repository?.full_name} workflow STARTED`,
       sections: [
         {
-          activityTitle: `Workflow '${context.workflow}' #${context.runNumber} started by ${name} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
+          activityTitle: `Workflow ${context.workflow} #${context.runNumber} started by ${name} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
           activitySubtitle: `${message}`,
           facts: [
             {
@@ -102,11 +102,10 @@ async function notifyFinished({
       '@type': 'MessageCard',
       '@context': 'http://schema.org/extensions',
       themeColor: `${themeColor}`,
-      by: `${name} ${email}`,
       sections: [
         {
-          activityTitle: `Workflow '${context.workflow}' #${context.runNumber} ${conclusion} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
-          activitySubtitle: `${message}`,
+          activityTitle: `Workflow ${context.workflow} #${context.runNumber} ${conclusion} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
+          activitySubtitle: `${message} (${name} ${email})`,
           facts: [
             {
               name:
