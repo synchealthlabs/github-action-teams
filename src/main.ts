@@ -102,6 +102,7 @@ async function notifyFinished({
       '@type': 'MessageCard',
       '@context': 'http://schema.org/extensions',
       themeColor: `${themeColor}`,
+      summary: `${context.payload.repository?.full_name} workflow ${conclusion}`,
       sections: [
         {
           activityTitle: `Workflow ${context.workflow} #${context.runNumber} ${conclusion} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
@@ -136,9 +137,9 @@ async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token')
     const webhookUri = core.getInput('webhook-uri')
-    const position = core.getInput('position')
-    if (!position || ['start', 'finish'].indexOf(position) == -1) {
-      core.setFailed("'position' input must be 'start' or 'finish'")
+    const templateType = core.getInput('type')
+    if (!templateType || ['start', 'finish'].indexOf(templateType) == -1) {
+      core.setFailed("'type' input must be 'start' or 'finish'")
       return
     }
     const status = core.getInput('status')
@@ -148,7 +149,7 @@ async function run(): Promise<void> {
 
     const { context } = github
 
-    switch (position) {
+    switch (templateType) {
       case 'start':
         await notifyStarted({
           token,

@@ -8,7 +8,7 @@ inputs:
   webhook-uri:
     required: true
     description: Microsoft Teams webhook uri
-  position:
+  type:
     required: true
     description: start or finish
   status:
