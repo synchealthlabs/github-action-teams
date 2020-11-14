@@ -146,6 +146,7 @@ async function run(): Promise<void> {
     const email = core.getInput('email')
     const name = core.getInput('name')
     const message = core.getInput('message')
+    const publishUrl = core.getInput('publish-url')
 
     const { context } = github
 
