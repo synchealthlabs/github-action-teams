@@ -91,9 +91,9 @@ async function notifyFinished({
     })
 
     const themeColor =
-      status === 'Success'
+      status === 'success'
         ? '90C978'
-        : status === 'Cancelled'
+        : status === 'cancelled'
         ? 'FFF175'
         : 'C23B23'
     const conclusion = status.toUpperCase()
@@ -106,7 +106,7 @@ async function notifyFinished({
       sections: [
         {
           activityTitle: `Workflow ${context.workflow} #${context.runNumber} ${conclusion} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
-          activitySubtitle: `${message} (${name} ${email})`,
+          activitySubtitle: `${message} (${name}: ${email})`,
           facts: [
             {
               name:
@@ -138,11 +138,11 @@ async function run(): Promise<void> {
     const token = core.getInput('github-token')
     const webhookUri = core.getInput('webhook-uri')
     const templateType = core.getInput('type')
-    if (!templateType || ['start', 'finish'].indexOf(templateType) == -1) {
+    if (!templateType || ['start', 'finish'].indexOf(templateType) === -1) {
       core.setFailed("'type' input must be 'start' or 'finish'")
       return
     }
-    const status = core.getInput('status')
+    const status = core.getInput('status').toLowerCase()
     const email = core.getInput('email')
     const name = core.getInput('name')
     const message = core.getInput('message')
