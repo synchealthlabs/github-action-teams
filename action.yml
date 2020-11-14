@@ -1,0 +1,16 @@
+name: synchealthlabs/github-action-teams
+description: Github Action Notifier for Microsoft Teams
+author: Sync Health Labs
+inputs:
+  github-token:
+    required: true
+    description: Github token
+  webhook-uri:
+    required: true
+    description: Microsoft Teams webhook uri
+  position:
+    required: true
+    description: start or finish
+runs:
+  using: node12
+  main: dist/main/index.js
