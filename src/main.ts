@@ -36,7 +36,7 @@ async function notifyStarted({
       summary: `${context.payload.repository?.full_name} workflow STARTED`,
       sections: [
         {
-          activityTitle: `Workflow ${context.workflow} #${context.runNumber} started by ${name} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
+          activityTitle: `Workflow ${context.workflow} #${context.runNumber} STARTED by ${name} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
           activitySubtitle: `${message}`,
           facts: [
             {
