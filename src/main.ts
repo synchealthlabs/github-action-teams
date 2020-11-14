@@ -9,7 +9,8 @@ async function notifyStarted({
   context,
   email,
   name,
-  message
+  message,
+  env
 }: {
   token: string
   webhookUri: string
@@ -17,6 +18,7 @@ async function notifyStarted({
   email: string
   name: string
   message: string
+  env: string
 }): Promise<void> {
   try {
     const octokit = github.getOctokit(token)
@@ -39,6 +41,10 @@ async function notifyStarted({
           activityTitle: `Workflow ${context.workflow} #${context.runNumber} STARTED by ${name} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
           activitySubtitle: `${message}`,
           facts: [
+            {
+              name: 'Env',
+              value: env
+            },
             {
               name:
                 context.eventName === 'pull_request'
@@ -72,7 +78,8 @@ async function notifyFinished({
   publishUrl,
   email,
   name,
-  message
+  message,
+  env
 }: {
   token: string
   webhookUri: string
@@ -82,6 +89,7 @@ async function notifyFinished({
   email: string
   name: string
   message: string
+  env: string
 }): Promise<void> {
   try {
     const octokit = github.getOctokit(token)
@@ -110,6 +118,10 @@ async function notifyFinished({
           activityTitle: `Workflow ${context.workflow} #${context.runNumber} ${conclusion} on [${context.payload.repository?.full_name}](${context.payload.repository?.html_url})`,
           activitySubtitle: `${message} (${name}: ${email})`,
           facts: [
+            {
+              name: 'Env',
+              value: env
+            },
             {
               name:
                 context.eventName === 'pull_request'
@@ -153,6 +165,7 @@ async function run(): Promise<void> {
     const email = core.getInput('email')
     const name = core.getInput('name')
     const message = core.getInput('message')
+    const env = core.getInput('env')
     const publishUrl = core.getInput('publish-url')
 
     const { context } = github
@@ -165,7 +178,8 @@ async function run(): Promise<void> {
           context,
           email,
           name,
-          message
+          message,
+          env
         })
         break
       case 'finish':
@@ -178,7 +192,8 @@ async function run(): Promise<void> {
           status,
           email,
           name,
-          message
+          message,
+          env
         })
         break
     }

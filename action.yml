@@ -23,6 +23,9 @@ inputs:
   message:
     description: Commit message
     required: true
+  env:
+    description: Environment staging or production
+    required: true
   publish-url: 
     required: false
     description: Publish url 
