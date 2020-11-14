@@ -69,6 +69,7 @@ async function notifyFinished({
   webhookUri,
   context,
   status,
+  publishUrl,
   email,
   name,
   message
@@ -77,6 +78,7 @@ async function notifyFinished({
   webhookUri: string
   context: Context
   status: string
+  publishUrl: string
   email: string
   name: string
   message: string
@@ -118,10 +120,15 @@ async function notifyFinished({
                   ? `[${context.payload.pull_request?.html_url}](${context.payload.pull_request?.html_url})`
                   : `[${context.payload.repository?.html_url}/tree/${context.ref}](${context.payload.repository?.html_url}/tree/${context.ref})`
             },
-            {
-              name: 'Workflow run details',
-              value: `[${wr.data.html_url}](${wr.data.html_url})`
-            }
+            status === 'success'
+              ? {
+                  name: 'Published site',
+                  value: `[${wr.data.html_url}](${wr.data.html_url})`
+                }
+              : {
+                  name: 'Workflow run details',
+                  value: `[${publishUrl}](${publishUrl})`
+                }
           ],
           markdown: true
         }
@@ -167,6 +174,7 @@ async function run(): Promise<void> {
           token,
           webhookUri,
           context,
+          publishUrl,
           status,
           email,
           name,
