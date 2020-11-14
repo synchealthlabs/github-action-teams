@@ -123,11 +123,11 @@ async function notifyFinished({
             status === 'success'
               ? {
                   name: 'Published site',
-                  value: `[${wr.data.html_url}](${wr.data.html_url})`
+                  value: `[${publishUrl}](${publishUrl})`
                 }
               : {
                   name: 'Workflow run details',
-                  value: `[${publishUrl}](${publishUrl})`
+                  value: `[${wr.data.html_url}](${wr.data.html_url})`
                 }
           ],
           markdown: true
