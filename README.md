@@ -23,4 +23,5 @@ jobs:
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
           position: start # or finish
+          status: ${{ job.status }}
 ```

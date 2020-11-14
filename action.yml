@@ -11,6 +11,19 @@ inputs:
   position:
     required: true
     description: start or finish
+  status:
+    description: "Job status i.e. Success/Failure/Cancelled"
+    required: true
+  email:
+    description: Email of the person requesting the job
+    required: true
+  name:
+    description: Name of the person requesting the job
+    required: true
+  message:
+    description: Commit message
+    required: true
+
 runs:
   using: node12
   main: dist/main/index.js
